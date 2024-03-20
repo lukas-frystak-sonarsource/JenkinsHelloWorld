@@ -1,10 +1,12 @@
 pipeline {
-    agent any
+    agent { label 'self-hosted' }
 
     stages {
-        stage('Hello') {
+        stage('SonarQube analysis') {
             steps {
-                echo 'Hello World'
+                withSonarQubeEnv('SonarQube10X') {
+                    bat 'sonar-scanner'
+                }
             }
         }
     }
